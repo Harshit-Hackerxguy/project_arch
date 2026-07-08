@@ -1,45 +1,39 @@
 # =============================================================================
-# File: dunst/dunstrc
-# Description: Cyber-Minimal Scandinavian configuration for Dunst.
-# Layer: Layer 7 — Notifications
+# File: ~/.config/dunst/dunstrc
+# Description: Production-ready Dunst notification daemon configuration.
+#              Uses latest stable Dunst syntax (no deprecated directives).
 # =============================================================================
 
 [global]
-    # Monitor and Positioning
     monitor = 0
     follow = mouse
-    width = 360
-    height = 300
+    width = (300, 360)
+    height = (0, 300)
     origin = top-right
-    offset = 16x48
+    offset = (16, 16)
     scale = 0
     notification_limit = 5
 
-    # Progress Bar
     progress_bar = true
     progress_bar_height = 8
     progress_bar_frame_width = 1
     progress_bar_min_width = 150
     progress_bar_max_width = 340
-    progress_bar_corner_radius = 4
 
-    # Visual Appearance & Rounded Corners
-    transparency = 15
+    indicate_hidden = yes
     separator_height = 2
-    padding = 16
-    horizontal_padding = 16
-    text_icon_padding = 16
+    padding = 14
+    horizontal_padding = 14
+    text_icon_padding = 14
     frame_width = 2
     frame_color = "#38BDF8"
     gap_size = 8
-    separator_color = "frame"
+    separator_color = frame
     sort = yes
     idle_threshold = 120
-    corner_radius = 12
 
-    # Typography & Text
-    font = Inter Medium 10
-    line_height = 3
+    font = "JetBrains Mono Nerd Font 10"
+    line_height = 4
     markup = full
     format = "<b>%s</b>\n%b"
     alignment = left
@@ -51,63 +45,40 @@
     hide_duplicate_count = false
     show_indicators = yes
 
-    # Icons
-    icon_position = left
-    min_icon_size = 32
-    max_icon_size = 64
     enable_recursive_icon_lookup = true
-    icon_theme = "Papirus-Dark"
+    icon_theme = "Papirus-Dark, Adwaita"
+    icon_position = left
+    min_icon_size = 48
+    max_icon_size = 64
 
-    # History
+    sticky_history = yes
     history_length = 20
 
-    # Interaction & Mouse
-    sticky_history = yes
-    history_ignore = no
+    browser = /usr/bin/xdg-open
     always_run_script = true
     title = Dunst
     class = Dunst
+    corner_radius = 10
     ignore_dbusclose = false
+
     mouse_left_click = close_current
     mouse_middle_click = do_action, close_current
     mouse_right_click = close_all
 
-[experimental]
-    per_monitor_dpi = false
-
-# -----------------------------------------------------------------------------
-# Urgency Rules (Cyber-Minimal Palette)
-# -----------------------------------------------------------------------------
 [urgency_low]
-    background = "#111827"
-    foreground = "#94A3B8"
-    frame_color = "#8B5CF6"
+    background = "#0F172AE6"
+    foreground = "#E2E8F0"
+    frame_color = "#38BDF8"
     timeout = 4
-    default_icon = /usr/share/icons/Papirus/32x32/status/dialog-information.svg
 
 [urgency_normal]
-    background = "#111827"
-    foreground = "#E5E7EB"
+    background = "#0F172AE6"
+    foreground = "#E2E8F0"
     frame_color = "#38BDF8"
-    timeout = 7
-    default_icon = /usr/share/icons/Papirus/32x32/status/dialog-information.svg
+    timeout = 6
 
 [urgency_critical]
-    background = "#111827"
-    foreground = "#E5E7EB"
+    background = "#1E293BE6"
+    foreground = "#F8FAFC"
     frame_color = "#F43F5E"
     timeout = 0
-    default_icon = /usr/share/icons/Papirus/32x32/status/dialog-warning.svg
-
-# -----------------------------------------------------------------------------
-# Custom Rules for Volume & Brightness (No History, Quick Timeout)
-# -----------------------------------------------------------------------------
-[volume]
-    appname = "changeVolume"
-    history_ignore = yes
-    timeout = 2
-
-[brightness]
-    appname = "changeBrightness"
-    history_ignore = yes
-    timeout = 2

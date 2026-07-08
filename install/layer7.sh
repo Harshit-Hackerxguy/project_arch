@@ -67,6 +67,42 @@ deploy_scripts() {
 }
 
 # =============================================================================
+# Desktop Configuration Deployment
+# =============================================================================
+
+deploy_desktop_configs() {
+    log_section "Deploying Desktop Configurations"
+
+    local configs=(
+        "hypr"
+        "waybar"
+        "kitty"
+        "rofi"
+        "dunst"
+        "hyprpaper"
+    )
+
+    for conf in "${configs[@]}"; do
+        if [[ -d "${REPO_ROOT}/${conf}" ]]; then
+            mkdir -p "${XDG_CONFIG_HOME}/${conf}"
+            cp -r "${REPO_ROOT}/${conf}/." "${XDG_CONFIG_HOME}/${conf}/"
+            log_ok "Deployed configuration: ${conf} → ${XDG_CONFIG_HOME}/${conf}"
+        fi
+    done
+
+    if [[ -f "${REPO_ROOT}/hyprpaper/hyprpaper.conf" ]]; then
+        cp "${REPO_ROOT}/hyprpaper/hyprpaper.conf" "${XDG_CONFIG_HOME}/hyprpaper.conf"
+    fi
+
+    if [[ -f "${REPO_ROOT}/gtk/settings.ini" ]]; then
+        mkdir -p "${XDG_CONFIG_HOME}/gtk-3.0" "${XDG_CONFIG_HOME}/gtk-4.0"
+        cp "${REPO_ROOT}/gtk/settings.ini" "${XDG_CONFIG_HOME}/gtk-3.0/settings.ini"
+        cp "${REPO_ROOT}/gtk/settings.ini" "${XDG_CONFIG_HOME}/gtk-4.0/settings.ini"
+        log_ok "Deployed GTK settings.ini to ~/.config/gtk-3.0 and ~/.config/gtk-4.0"
+    fi
+}
+
+# =============================================================================
 # System Optimizations
 # =============================================================================
 
@@ -163,6 +199,9 @@ main() {
 
     # Deploy scripts.
     deploy_scripts
+
+    # Deploy desktop configurations.
+    deploy_desktop_configs
 
     # System optimizations.
     log_section "System Configuration"

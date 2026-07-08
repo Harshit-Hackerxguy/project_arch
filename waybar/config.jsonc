@@ -1,7 +1,6 @@
 // =============================================================================
-// File: waybar/config.jsonc
-// Description: Main modular Waybar configuration (floating, modern, minimal).
-// Layer: Layer 5 — Waybar
+// File: ~/.config/waybar/config.jsonc
+// Description: Production-ready Waybar configuration bar.
 // =============================================================================
 {
   "layer": "top",
@@ -14,11 +13,6 @@
   "spacing": 8,
   "exclusive": true,
   "fixed-center": true,
-
-  "include": [
-    "~/.config/waybar/modules/hardware.jsonc",
-    "~/.config/waybar/modules/network.jsonc"
-  ],
 
   "modules-left": [
     "custom/launcher",
@@ -33,23 +27,20 @@
   "modules-right": [
     "cpu",
     "memory",
-    "disk",
+    "temperature",
     "network",
     "bluetooth",
     "pulseaudio",
-    "backlight",
+    "pulseaudio#microphone",
     "battery",
     "tray",
     "custom/powermenu"
   ],
 
-  // ---------------------------------------------------------------------------
-  // Left Modules
-  // ---------------------------------------------------------------------------
   "custom/launcher": {
     "format": "",
     "tooltip": false,
-    "on-click": "rofi -show drun -theme ~/.config/rofi/themes/cyber-minimal.rasi"
+    "on-click": "rofi -show drun -show-icons -theme ~/.config/rofi/themes/cyber-minimal.rasi"
   },
 
   "hyprland/workspaces": {
@@ -78,19 +69,16 @@
 
   "hyprland/window": {
     "format": "{}",
-    "max-length": 40,
+    "max-length": 45,
     "separate-outputs": true,
     "rewrite": {
       "(.*) — Mozilla Firefox": "  $1",
       "(.*) - NVIM": "  $1",
       "(.*) — Kitty": "  $1",
-      "": "󰇄  Desktop"
+      "": "󰇄  Arch Linux Desktop"
     }
   },
 
-  // ---------------------------------------------------------------------------
-  // Center Module
-  // ---------------------------------------------------------------------------
   "clock": {
     "format": "  {:%H:%M  •  󰃭 %a, %b %d}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
@@ -106,17 +94,76 @@
         "weekdays": "<span color='#F59E0B'><b>{}</b></span>",
         "today": "<span color='#10B981'><b><u>{}</u></b></span>"
       }
-    },
-    "actions": {
-      "on-click-right": "mode",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
     }
   },
 
-  // ---------------------------------------------------------------------------
-  // System Tray & Power Menu
-  // ---------------------------------------------------------------------------
+  "cpu": {
+    "interval": 2,
+    "format": "  {usage}%",
+    "tooltip": true
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "  {percentage}%",
+    "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB"
+  },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C",
+    "format-critical": " {temperatureC}°C"
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "  Connected",
+    "format-disconnected": "  Offline",
+    "tooltip-format": "{ifname} via {gwaddr} ({signalStrength}%)",
+    "on-click": "kitty -e nmtui"
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "  Muted",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": " Muted",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}  {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-plugged": "  {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+
   "tray": {
     "icon-size": 16,
     "spacing": 10
@@ -125,6 +172,6 @@
   "custom/powermenu": {
     "format": "",
     "tooltip": false,
-    "on-click": "~/.config/rofi/scripts/powermenu.sh"
+    "on-click": "~/.config/scripts/power/powermenu.sh"
   }
 }

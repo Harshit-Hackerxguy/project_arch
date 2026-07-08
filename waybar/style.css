@@ -1,221 +1,169 @@
 /* =============================================================================
- * File: waybar/style.css
- * Description: Cyber-Minimal Scandinavian styling for Waybar (floating, blur).
- * Layer: Layer 5 — Waybar
+ * File: ~/.config/waybar/style.css
+ * Description: Production-ready CSS styling for Waybar.
  * ============================================================================= */
 
 * {
-  border: none;
-  border-radius: 0;
-  font-family: "JetBrains Mono Nerd Font", "Inter", sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  min-height: 0;
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrains Mono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 0;
 }
 
 window#waybar {
-  background: rgba(17, 24, 39, 0.75);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  border-radius: 12px;
-  color: #E5E7EB;
-  transition_property: background-color;
-  transition_duration: .5s;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1.5px solid rgba(56, 189, 248, 0.35);
+    border-radius: 10px;
+    color: #E2E8F0;
+    transition-property: background-color;
+    transition-duration: 0.3s;
 }
 
-window#waybar.hidden {
-  opacity: 0.2;
+tooltip {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #E2E8F0;
+    padding: 6px;
 }
 
 /* -----------------------------------------------------------------------------
- * Module Containers & Pills
+ * Modules Common Styling
  * ----------------------------------------------------------------------------- */
-.modules-left, .modules-center, .modules-right {
-  background: transparent;
-}
-
-#launcher,
 #workspaces,
 #window,
 #clock,
 #cpu,
 #memory,
-#disk,
+#temperature,
 #network,
 #bluetooth,
 #pulseaudio,
-#backlight,
 #battery,
 #tray,
+#custom-launcher,
 #custom-powermenu {
-  background: #1E293B;
-  color: #E5E7EB;
-  padding: 4px 12px;
-  margin: 4px 3px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(30, 41, 59, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 2px 12px;
+    margin: 4px 0px;
 }
 
 /* -----------------------------------------------------------------------------
- * Custom Launcher Button
+ * Launcher & Powermenu Icons
  * ----------------------------------------------------------------------------- */
-#launcher {
-  background: linear-gradient(45deg, #38BDF8, #8B5CF6);
-  color: #0B0F14;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 8px;
+#custom-launcher {
+    color: #38BDF8;
+    font-size: 16px;
+    padding: 2px 14px;
+    margin-right: 4px;
 }
 
-#launcher:hover {
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+#custom-powermenu {
+    color: #F43F5E;
+    font-size: 15px;
+    padding: 2px 12px;
+    margin-left: 4px;
 }
 
 /* -----------------------------------------------------------------------------
  * Workspaces
  * ----------------------------------------------------------------------------- */
 #workspaces {
-  padding: 2px 6px;
+    padding: 2px 6px;
 }
 
 #workspaces button {
-  padding: 2px 8px;
-  margin: 2px;
-  color: #94A3B8;
-  background: transparent;
-  border-radius: 6px;
-  transition: all 0.2s ease-in-out;
+    color: #64748B;
+    padding: 0 6px;
+    margin: 0 2px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
 #workspaces button:hover {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38BDF8;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38BDF8;
 }
 
 #workspaces button.active {
-  background: #38BDF8;
-  color: #0B0F14;
-  font-weight: 700;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    color: #38BDF8;
+    background: rgba(56, 189, 248, 0.22);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
 }
 
 #workspaces button.urgent {
-  background: #F43F5E;
-  color: #E5E7EB;
+    color: #F43F5E;
+    background: rgba(244, 63, 94, 0.2);
 }
 
 /* -----------------------------------------------------------------------------
- * Active Window Title
- * ----------------------------------------------------------------------------- */
-#window {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
-  font-style: italic;
-}
-
-/* -----------------------------------------------------------------------------
- * Clock Module
+ * Specific Module Colors
  * ----------------------------------------------------------------------------- */
 #clock {
-  background: rgba(30, 41, 59, 0.9);
-  color: #38BDF8;
-  font-weight: 700;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+    color: #38BDF8;
+    font-weight: 700;
 }
 
-/* -----------------------------------------------------------------------------
- * Hardware & System Metrics
- * ----------------------------------------------------------------------------- */
 #cpu {
-  color: #38BDF8;
+    color: #A855F7;
 }
 
 #memory {
-  color: #8B5CF6;
+    color: #3B82F6;
 }
 
-#disk {
-  color: #10B981;
+#temperature {
+    color: #F59E0B;
 }
 
-#battery {
-  color: #10B981;
+#temperature.critical {
+    color: #EF4444;
+    background: rgba(239, 68, 68, 0.2);
 }
 
-#battery.warning {
-  color: #F59E0B;
-}
-
-#battery.critical:not(.charging) {
-  background: #F43F5E;
-  color: #E5E7EB;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@keyframes blink {
-  to {
-    background-color: #1E293B;
-    color: #F43F5E;
-  }
-}
-
-/* -----------------------------------------------------------------------------
- * Network, Bluetooth, Audio, Brightness
- * ----------------------------------------------------------------------------- */
 #network {
-  color: #38BDF8;
-}
-
-#network.disconnected {
-  color: #F43F5E;
+    color: #10B981;
 }
 
 #bluetooth {
-  color: #8B5CF6;
+    color: #60A5FA;
 }
 
 #pulseaudio {
-  color: #38BDF8;
+    color: #EC4899;
 }
 
-#pulseaudio.muted {
-  color: #475569;
+#pulseaudio.microphone {
+    color: #F43F5E;
 }
 
-#backlight {
-  color: #F59E0B;
+#battery {
+    color: #10B981;
 }
 
-/* -----------------------------------------------------------------------------
- * System Tray & Power Button
- * ----------------------------------------------------------------------------- */
-#tray {
-  background: #111827;
+#battery.warning {
+    color: #F59E0B;
 }
 
-#tray > .passive {
-  -gtk-icon-effect: dim;
+#battery.critical {
+    color: #EF4444;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-  background-color: #F43F5E;
-}
-
-#custom-powermenu {
-  background: #F43F5E;
-  color: #E5E7EB;
-  font-size: 14px;
-  padding: 4px 12px;
-  border-radius: 8px;
-}
-
-#custom-powermenu:hover {
-  background: #FB7185;
-  box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+@keyframes blink {
+    to {
+        background-color: rgba(239, 68, 68, 0.35);
+        color: #FFFFFF;
+    }
 }
