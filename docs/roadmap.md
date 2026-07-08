@@ -174,14 +174,42 @@ Layer 5.
 
 ## Layer 7 — Scripts and Automation (Ongoing)
 
-**Status:** 🔲 Planned (ongoing)
+**Status:** ✅ Complete
 
 **Scope:** Repository maintenance scripts, system update helpers, backup
 tools, and other utilities that span multiple layers.
 
-Scripts in `scripts/` will be added incrementally throughout all layers as
-maintenance needs are identified. A full inventory will be documented here
-as they are created.
+---
+
+## Layer 8 — Session, Lock Screen & Power Management
+
+**Status:** ✅ Complete
+
+**Scope:** Hyprlock and Hypridle configurations, screen locking, automatic screen timeout, DPMS display power management, power menu integration with hibernate support, clean logout, reboot, shutdown, and session cleanup.
+
+---
+
+## Layer 9 — Automation & Productivity
+
+**Status:** ✅ Complete
+
+**Scope:** Modular automation script suite organized into dedicated categories:
+- `audio/`: volume, microphone, and media playback control
+- `display/`: brightness and monitor DPMS management
+- `network/`: Wi-Fi, Bluetooth, and diagnostic status tools
+- `screenshots/`: screenshot and screen recording utilities
+- `updates/`: package check and system upgrade helpers
+- `wallpaper/`: wallpaper setting and random rotation
+- `utilities/`: clipboard manager, cache/temp cleanup, emoji picker, calculator, color picker, OCR helper, and file manager launcher
+- `startup/`: session initialization and idempotent background daemon launcher
+
+---
+
+## Layer 10 — Final Polish
+
+**Status:** ✅ Complete
+
+**Scope:** Unified GTK 3/4 and Qt 5/6 configuration, XSettings daemon setup, master theme tokens, wallpaper setup initialization, terminal color scheme alignment, boot and runtime optimization, and full desktop validation suite.
 
 ---
 
@@ -194,13 +222,11 @@ as they are created.
 | v0.3.0 | Working Wayland session | 0–2 |
 | v0.4.0 | Full desktop shell | 0–3 |
 | v0.5.0 | Terminal environment complete | 0–4 |
-| v1.0.0 | Fully polished desktop | 0–5 |
+| v1.0.0 | Fully polished desktop | 0–10 |
 
 ---
 
 ## Known Limitations and Open Questions
 
-- **swww vs. swaybg** — Wallpaper daemon not yet selected; decision deferred to Layer 2
-- **Starship vs. custom prompt** — Shell prompt tool not yet decided; deferred to Layer 4
-- **GNU Stow** — Whether to use symlink management is undecided; evaluate at Layer 2
-- **Zsh location** — Zsh config may live in `zsh/` or merged with `kitty/`; TBD at Layer 4
+- **swww vs. swaybg** — Both supported; `swww` preferred for animated transitions with automatic fallback to `swaybg`.
+- **Validation Suite** — Use `install/verify_desktop.sh` or `scripts/utilities/validate_desktop.sh` to check configuration and dependencies anytime.

@@ -1,0 +1,60 @@
+// =============================================================================
+// File: waybar/modules/network.jsonc
+// Description: Network, Bluetooth, Pulseaudio, Backlight modules for Waybar.
+// Layer: Layer 5 — Waybar
+// =============================================================================
+{
+  "network": {
+    "interval": 5,
+    "format-wifi": "   {essid}",
+    "format-ethernet": "󰈀   Wired",
+    "format-linked": "󰈀   {ifname} (No IP)",
+    "format-disconnected": "󰖪   Offline",
+    "tooltip-format-wifi": "SSID: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nSpeed: ⇣{bandwidthDownBits} ⇡{bandwidthUpBits}",
+    "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+    "tooltip-format-disconnected": "Network disconnected",
+    "on-click": "nm-connection-editor"
+  },
+
+  "bluetooth": {
+    "format": "  {status}",
+    "format-connected": "  {device_alias}",
+    "format-connected-battery": "  {device_alias} ({device_battery_percentage}%)",
+    "format-disabled": "󰂲  Off",
+    "format-off": "󰂲  Off",
+    "tooltip-format": "{controller_alias}\nStatus: {status}",
+    "tooltip-format-connected": "{controller_alias}\nConnected:\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "  • {device_alias} ({device_address})",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-bluetooth": "{icon}  {volume}%",
+    "format-muted": "󰖁  Muted",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": [" ", " ", " "]
+    },
+    "scroll-step": 5,
+    "on-click": "pamixer --toggle-mute",
+    "on-click-right": "pavucontrol",
+    "tooltip": true,
+    "tooltip-format": "Audio Sink: {desc}\nVolume: {volume}%"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}  {percent}%",
+    "format-icons": ["󰃞 ", "󰃟 ", "󰃠 "],
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "tooltip": true,
+    "tooltip-format": "Display Brightness: {percent}%"
+  }
+}

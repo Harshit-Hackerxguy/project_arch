@@ -1,0 +1,30 @@
+[Icon Theme]
+Name=Cyber-Minimal
+Comment=Cyber-Minimal Scandinavian Icon & Cursor Theme
+Inherits=Papirus-Dark,Adwaita,hicolor
+Directories=24x24/actions,24x24/apps,24x24/devices,24x24/places,24x24/status
+
+[24x24/actions]
+Size=24
+Context=Actions
+Type=Threshold
+
+[24x24/apps]
+Size=24
+Context=Applications
+Type=Threshold
+
+[24x24/devices]
+Size=24
+Context=Devices
+Type=Threshold
+
+[24x24/places]
+Size=24
+Context=Places
+Type=Threshold
+
+[24x24/status]
+Size=24
+Context=Status
+Type=Threshold

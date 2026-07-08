@@ -1,0 +1,221 @@
+/* =============================================================================
+ * File: waybar/style.css
+ * Description: Cyber-Minimal Scandinavian styling for Waybar (floating, blur).
+ * Layer: Layer 5 — Waybar
+ * ============================================================================= */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrains Mono Nerd Font", "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(17, 24, 39, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  color: #E5E7EB;
+  transition_property: background-color;
+  transition_duration: .5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module Containers & Pills
+ * ----------------------------------------------------------------------------- */
+.modules-left, .modules-center, .modules-right {
+  background: transparent;
+}
+
+#launcher,
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#disk,
+#network,
+#bluetooth,
+#pulseaudio,
+#backlight,
+#battery,
+#tray,
+#custom-powermenu {
+  background: #1E293B;
+  color: #E5E7EB;
+  padding: 4px 12px;
+  margin: 4px 3px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* -----------------------------------------------------------------------------
+ * Custom Launcher Button
+ * ----------------------------------------------------------------------------- */
+#launcher {
+  background: linear-gradient(45deg, #38BDF8, #8B5CF6);
+  color: #0B0F14;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 8px;
+}
+
+#launcher:hover {
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+/* -----------------------------------------------------------------------------
+ * Workspaces
+ * ----------------------------------------------------------------------------- */
+#workspaces {
+  padding: 2px 6px;
+}
+
+#workspaces button {
+  padding: 2px 8px;
+  margin: 2px;
+  color: #94A3B8;
+  background: transparent;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+}
+
+#workspaces button.active {
+  background: #38BDF8;
+  color: #0B0F14;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+#workspaces button.urgent {
+  background: #F43F5E;
+  color: #E5E7EB;
+}
+
+/* -----------------------------------------------------------------------------
+ * Active Window Title
+ * ----------------------------------------------------------------------------- */
+#window {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-style: italic;
+}
+
+/* -----------------------------------------------------------------------------
+ * Clock Module
+ * ----------------------------------------------------------------------------- */
+#clock {
+  background: rgba(30, 41, 59, 0.9);
+  color: #38BDF8;
+  font-weight: 700;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+/* -----------------------------------------------------------------------------
+ * Hardware & System Metrics
+ * ----------------------------------------------------------------------------- */
+#cpu {
+  color: #38BDF8;
+}
+
+#memory {
+  color: #8B5CF6;
+}
+
+#disk {
+  color: #10B981;
+}
+
+#battery {
+  color: #10B981;
+}
+
+#battery.warning {
+  color: #F59E0B;
+}
+
+#battery.critical:not(.charging) {
+  background: #F43F5E;
+  color: #E5E7EB;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  to {
+    background-color: #1E293B;
+    color: #F43F5E;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * Network, Bluetooth, Audio, Brightness
+ * ----------------------------------------------------------------------------- */
+#network {
+  color: #38BDF8;
+}
+
+#network.disconnected {
+  color: #F43F5E;
+}
+
+#bluetooth {
+  color: #8B5CF6;
+}
+
+#pulseaudio {
+  color: #38BDF8;
+}
+
+#pulseaudio.muted {
+  color: #475569;
+}
+
+#backlight {
+  color: #F59E0B;
+}
+
+/* -----------------------------------------------------------------------------
+ * System Tray & Power Button
+ * ----------------------------------------------------------------------------- */
+#tray {
+  background: #111827;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #F43F5E;
+}
+
+#custom-powermenu {
+  background: #F43F5E;
+  color: #E5E7EB;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+#custom-powermenu:hover {
+  background: #FB7185;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+}

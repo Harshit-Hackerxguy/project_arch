@@ -1,0 +1,113 @@
+# =============================================================================
+# File: dunst/dunstrc
+# Description: Cyber-Minimal Scandinavian configuration for Dunst.
+# Layer: Layer 7 — Notifications
+# =============================================================================
+
+[global]
+    # Monitor and Positioning
+    monitor = 0
+    follow = mouse
+    width = 360
+    height = 300
+    origin = top-right
+    offset = 16x48
+    scale = 0
+    notification_limit = 5
+
+    # Progress Bar
+    progress_bar = true
+    progress_bar_height = 8
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 340
+    progress_bar_corner_radius = 4
+
+    # Visual Appearance & Rounded Corners
+    transparency = 15
+    separator_height = 2
+    padding = 16
+    horizontal_padding = 16
+    text_icon_padding = 16
+    frame_width = 2
+    frame_color = "#38BDF8"
+    gap_size = 8
+    separator_color = "frame"
+    sort = yes
+    idle_threshold = 120
+    corner_radius = 12
+
+    # Typography & Text
+    font = Inter Medium 10
+    line_height = 3
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+
+    # Icons
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 64
+    enable_recursive_icon_lookup = true
+    icon_theme = "Papirus-Dark"
+
+    # History
+    history_length = 20
+
+    # Interaction & Mouse
+    sticky_history = yes
+    history_ignore = no
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    ignore_dbusclose = false
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[experimental]
+    per_monitor_dpi = false
+
+# -----------------------------------------------------------------------------
+# Urgency Rules (Cyber-Minimal Palette)
+# -----------------------------------------------------------------------------
+[urgency_low]
+    background = "#111827"
+    foreground = "#94A3B8"
+    frame_color = "#8B5CF6"
+    timeout = 4
+    default_icon = /usr/share/icons/Papirus/32x32/status/dialog-information.svg
+
+[urgency_normal]
+    background = "#111827"
+    foreground = "#E5E7EB"
+    frame_color = "#38BDF8"
+    timeout = 7
+    default_icon = /usr/share/icons/Papirus/32x32/status/dialog-information.svg
+
+[urgency_critical]
+    background = "#111827"
+    foreground = "#E5E7EB"
+    frame_color = "#F43F5E"
+    timeout = 0
+    default_icon = /usr/share/icons/Papirus/32x32/status/dialog-warning.svg
+
+# -----------------------------------------------------------------------------
+# Custom Rules for Volume & Brightness (No History, Quick Timeout)
+# -----------------------------------------------------------------------------
+[volume]
+    appname = "changeVolume"
+    history_ignore = yes
+    timeout = 2
+
+[brightness]
+    appname = "changeBrightness"
+    history_ignore = yes
+    timeout = 2

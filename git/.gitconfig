@@ -1,0 +1,63 @@
+# =============================================================================
+# File: git/.gitconfig
+# Description: Global Git configuration with delta integration and aliases.
+# Layer: Layer 4 — Developer Environment
+# =============================================================================
+
+[user]
+    # Update these or override via ~/.gitconfig.local
+    name = project_arch user
+    email = user@project-arch.local
+
+[init]
+    defaultBranch = main
+
+[core]
+    editor = nvim
+    pager = delta
+    autocrlf = input
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    light = false
+    side-by-side = false
+    line-numbers = true
+    syntax-theme = Nord
+    plus-style = "syntax #003800"
+    minus-style = "syntax #3f0001"
+    file-style = "bold #38BDF8"
+    file-decoration-style = "#8B5CF6 ul"
+    hunk-header-decoration-style = "#1E293B box"
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[pull]
+    rebase = true
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+
+[alias]
+    st = status -sb
+    co = checkout
+    cb = checkout -b
+    br = branch
+    ci = commit -v
+    ca = commit --amend -v
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    df = diff
+    dc = diff --cached
