@@ -62,16 +62,17 @@ main() {
 
     # -- Font Check --
     log_info "Verifying fonts..."
-    if fc-list | grep -qi "JetBrains" 2>/dev/null; then
-        v_pass "JetBrains Mono font available"
+
+    if package_installed "ttf-jetbrains-mono-nerd"; then
+        v_pass "JetBrains Nerd Font package installed"
     else
-        v_fail "JetBrains Mono font NOT found"
+        v_fail "JetBrains Nerd Font package NOT installed"
     fi
 
-    if fc-list | grep -qi "Noto Sans" 2>/dev/null; then
-        v_pass "Noto Sans font available"
+    if package_installed "noto-fonts"; then
+        v_pass "Noto Sans package installed"
     else
-        v_fail "Noto Sans font NOT found"
+        v_fail "Noto Sans package NOT installed"
     fi
 
     set -e
