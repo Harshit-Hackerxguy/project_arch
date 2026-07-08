@@ -1,0 +1,124 @@
+# =============================================================================
+# project_arch — .gitignore
+# =============================================================================
+# This file defines patterns that Git should never track.
+# Every pattern is documented so its purpose is clear.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Secrets and credentials
+# Never commit secrets. Use environment variables or a secrets manager.
+# -----------------------------------------------------------------------------
+.env
+.env.*
+*.secret
+secrets/
+credentials/
+*.pem
+*.key
+*.crt
+
+# -----------------------------------------------------------------------------
+# Editor and IDE artifacts
+# Each developer uses different tools. Editor config belongs in dotfiles,
+# not in a shared repository.
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# -----------------------------------------------------------------------------
+# Vim undo history
+# Vim can store persistent undo files. These are personal and should not
+# be committed.
+# -----------------------------------------------------------------------------
+.vim/
+*.un~
+
+# -----------------------------------------------------------------------------
+# Log files
+# Logs are runtime artifacts and should not be version-controlled.
+# -----------------------------------------------------------------------------
+*.log
+logs/
+*.out
+
+# -----------------------------------------------------------------------------
+# Temporary files
+# Files created during build, test, or install runs.
+# -----------------------------------------------------------------------------
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
+
+# -----------------------------------------------------------------------------
+# Shell history
+# Personal command history is never shared.
+# -----------------------------------------------------------------------------
+.bash_history
+.zsh_history
+.histfile
+
+# -----------------------------------------------------------------------------
+# Package manager caches
+# These can always be regenerated and are large.
+# -----------------------------------------------------------------------------
+node_modules/
+__pycache__/
+*.pyc
+.cache/
+
+# -----------------------------------------------------------------------------
+# Compiled binaries
+# Build output should not be committed. Build from source.
+# -----------------------------------------------------------------------------
+*.o
+*.so
+*.a
+*.out
+
+# -----------------------------------------------------------------------------
+# Archive files
+# Downloaded or generated archives should not live in the repository.
+# -----------------------------------------------------------------------------
+*.tar.gz
+*.tar.xz
+*.zip
+*.7z
+*.rar
+
+# -----------------------------------------------------------------------------
+# Wallpapers
+# Large binary files (images) should be managed separately, e.g., via
+# Git LFS or a separate media repository. The wallpapers/ directory exists
+# in the repo as a placeholder only.
+# Exception: small preview images for documentation are allowed.
+# -----------------------------------------------------------------------------
+wallpapers/*.jpg
+wallpapers/*.jpeg
+wallpapers/*.png
+wallpapers/*.webp
+wallpapers/*.gif
+# Allow preview thumbnails
+!wallpapers/previews/
+
+# -----------------------------------------------------------------------------
+# GPG / SSH artifacts
+# Never commit key material or agent sockets.
+# -----------------------------------------------------------------------------
+*.gpg
+*.asc
+.gnupg/
+
+# -----------------------------------------------------------------------------
+# Pacman artifacts
+# Pacman package cache files should not be tracked.
+# -----------------------------------------------------------------------------
+*.pkg.tar.zst
+*.pkg.tar.xz
