@@ -1,0 +1,310 @@
+(defvar volume-level 50)
+(defvar brightness-level 70)
+(defvar wifi-enabled true)
+(defvar bluetooth-enabled false)
+(defvar dnd-enabled false)
+(defvar cc-reveal false)
+
+(deflisten music-data
+  :initial '{"title":"Nothing Playing","artist":"","status":"Stopped","art":""}'
+  `~/.config/eww/scripts/music.sh`)
+
+(defpoll volume-val :interval "1s"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%.0f", $2*100}'`)
+
+(defpoll brightness-val :interval "2s"
+  `brightnessctl -m | cut -d, -f4 | tr -d '%'`)
+
+(defpoll wifi-name :interval "5s"
+  `nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2 || echo "Disconnected"`)
+
+(defpoll wifi-status :interval "5s"
+  `nmcli radio wifi`)
+
+(defpoll bt-status :interval "5s"
+  `bluetoothctl show | grep -q 'Powered: yes' && echo 'on' || echo 'off'`)
+
+(defpoll cpu-usage :interval "2s"
+  `top -bn1 | grep "Cpu(s)" | awk '{printf "%.0f", $2}'`)
+
+(defpoll ram-usage :interval "3s"
+  `free | awk '/Mem:/ {printf "%.0f", $3/$2*100}'`)
+
+(defpoll disk-usage :interval "30s"
+  `df -h / | awk 'NR==2 {gsub(/%/,"",$5); print $5}'`)
+
+(defpoll net-down :interval "2s"
+  `~/.config/eww/scripts/network.sh down`)
+
+(defpoll net-up :interval "2s"
+  `~/.config/eww/scripts/network.sh up`)
+
+(defpoll gpu-usage :interval "3s"
+  `~/.config/eww/scripts/gpu.sh`)
+
+(defpoll current-time :interval "1s"
+  `date '+%H:%M'`)
+
+(defpoll current-seconds :interval "1s"
+  `date '+%S'`)
+
+(defpoll current-date :interval "60s"
+  `date '+%A, %B %d'`)
+
+(defpoll current-day :interval "60s"
+  `date '+%d'`)
+
+(defpoll current-month :interval "3600s"
+  `date '+%B %Y'`)
+
+(defpoll cal-output :interval "3600s"
+  `cal`)
+
+(defwidget toggle-button [icon active onclick tooltip-text]
+  (button
+    :class "toggle-btn ${active ? 'active' : ''}"
+    :onclick onclick
+    :tooltip tooltip-text
+    (box
+      :orientation "v"
+      :space-evenly false
+      :spacing 4
+      (label :class "toggle-icon" :text icon))))
+
+(defwidget slider-widget [icon value onchange color]
+  (box
+    :class "slider-container"
+    :orientation "h"
+    :space-evenly false
+    :spacing 12
+    (label :class "slider-icon" :style "color: ${color};" :text icon)
+    (scale
+      :class "styled-slider"
+      :min 0
+      :max 101
+      :value value
+      :onchange onchange
+      :orientation "h"
+      :hexpand true)
+    (label :class "slider-value" :text "${value}%")))
+
+(defwidget media-player []
+  (box
+    :class "media-container"
+    :orientation "h"
+    :space-evenly false
+    :spacing 14
+    (box
+      :class "media-art"
+      :style "background-image: url('${music-data.art}');"
+      :width 64
+      :height 64)
+    (box
+      :orientation "v"
+      :space-evenly false
+      :spacing 4
+      :hexpand true
+      :valign "center"
+      (label
+        :class "media-title"
+        :halign "start"
+        :limit-width 28
+        :text {music-data.title})
+      (label
+        :class "media-artist"
+        :halign "start"
+        :limit-width 32
+        :text {music-data.artist})
+      (box
+        :class "media-controls"
+        :orientation "h"
+        :halign "start"
+        :spacing 16
+        (button :class "media-btn" :onclick "playerctl previous" "")
+        (button :class "media-btn play-btn" :onclick "playerctl play-pause"
+          {music-data.status == "Playing" ? "" : ""})
+        (button :class "media-btn" :onclick "playerctl next" "")))))
+
+(defwidget control-center-layout []
+  (box
+    :class "cc-container"
+    :orientation "v"
+    :space-evenly false
+    :spacing 14
+
+    (box
+      :class "cc-header"
+      :orientation "h"
+      :space-evenly false
+      (label :class "cc-title" :text "Control Center" :hexpand true :halign "start")
+      (label :class "cc-time" :text current-time))
+
+    (box
+      :class "cc-toggles"
+      :orientation "h"
+      :spacing 10
+      :halign "center"
+      (toggle-button
+        :icon ""
+        :active {wifi-status == "enabled"}
+        :onclick "nmcli radio wifi ${wifi-status == 'enabled' ? 'off' : 'on'}"
+        :tooltip-text "Wi-Fi: ${wifi-name}")
+      (toggle-button
+        :icon ""
+        :active {bt-status == "on"}
+        :onclick "bluetoothctl power ${bt-status == 'on' ? 'off' : 'on'}"
+        :tooltip-text "Bluetooth")
+      (toggle-button
+        :icon {dnd-enabled ? "" : ""}
+        :active dnd-enabled
+        :onclick "eww update dnd-enabled=${!dnd-enabled} && dunstctl set-paused ${!dnd-enabled ? 'true' : 'false'}"
+        :tooltip-text "Do Not Disturb")
+      (toggle-button
+        :icon ""
+        :active false
+        :onclick "hyprlock"
+        :tooltip-text "Lock Screen"))
+
+    (box
+      :class "cc-sliders"
+      :orientation "v"
+      :spacing 10
+      (slider-widget
+        :icon {volume-val > 66 ? "" : (volume-val > 33 ? "" : (volume-val > 0 ? "" : ""))}
+        :value volume-val
+        :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"
+        :color "#EC4899")
+      (slider-widget
+        :icon {brightness-val > 50 ? "" : ""}
+        :value brightness-val
+        :onchange "brightnessctl set {}%"
+        :color "#F59E0B"))
+
+    (media-player)
+
+    (box
+      :class "cc-calendar"
+      :orientation "v"
+      :space-evenly false
+      :spacing 8
+      (label :class "cal-month" :text current-month :halign "start")
+      (label :class "cal-body" :text cal-output))))
+
+(defwidget circular-progress-widget [value icon label color]
+  (box
+    :class "sys-metric"
+    :orientation "v"
+    :space-evenly false
+    :spacing 6
+    (overlay
+      (circular-progress
+        :class "sys-circle"
+        :value value
+        :thickness 6
+        :clockwise true
+        :start-at 75
+        :style "color: ${color};")
+      (label :class "sys-circle-icon" :style "color: ${color};" :text icon))
+    (label :class "sys-label" :text label)
+    (label :class "sys-value" :text "${value}%")))
+
+(defwidget system-dashboard-layout []
+  (box
+    :class "dashboard-container"
+    :orientation "v"
+    :space-evenly false
+    :spacing 16
+
+    (label :class "dashboard-title" :text "System" :halign "start")
+
+    (box
+      :class "dashboard-metrics"
+      :orientation "h"
+      :spacing 16
+      :halign "center"
+      (circular-progress-widget
+        :value cpu-usage :icon "" :label "CPU" :color "#A855F7")
+      (circular-progress-widget
+        :value gpu-usage :icon "󰢮" :label "GPU" :color "#EC4899")
+      (circular-progress-widget
+        :value ram-usage :icon "" :label "RAM" :color "#38BDF8")
+      (circular-progress-widget
+        :value disk-usage :icon "󰋊" :label "SSD" :color "#10B981"))
+
+    (box
+      :class "dashboard-network"
+      :orientation "h"
+      :spacing 20
+      :halign "center"
+      (box :orientation "h" :spacing 6
+        (label :class "net-icon down" :text "")
+        (label :class "net-val" :text "${net-down}"))
+      (box :orientation "h" :spacing 6
+        (label :class "net-icon up" :text "")
+        (label :class "net-val" :text "${net-up}")))))
+
+(defwidget desktop-clock-layout []
+  (box
+    :class "dclock-container"
+    :orientation "v"
+    :space-evenly false
+    :spacing 4
+    :halign "center"
+    :valign "center"
+    (label :class "dclock-time" :text current-time)
+    (label :class "dclock-seconds" :text current-seconds)
+    (label :class "dclock-date" :text current-date)))
+
+(defwidget calendar-widget-layout []
+  (box
+    :class "calwidget-container"
+    :orientation "v"
+    :space-evenly false
+    :spacing 10
+    (label :class "calwidget-month" :text current-month :halign "center")
+    (label :class "calwidget-body" :text cal-output)
+    (label :class "calwidget-today" :text "Today is ${current-date}" :halign "center")))
+
+(defwindow control-center
+  :monitor 0
+  :geometry (geometry
+    :x "10px"
+    :y "10px"
+    :width "380px"
+    :anchor "top right")
+  :stacking "overlay"
+  :namespace "ags-controlcenter"
+  (control-center-layout))
+
+(defwindow system-dashboard
+  :monitor 0
+  :geometry (geometry
+    :x "16px"
+    :y "16px"
+    :width "420px"
+    :anchor "bottom right")
+  :stacking "overlay"
+  :namespace "ags-desktop"
+  (system-dashboard-layout))
+
+(defwindow desktop-clock
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "-60px"
+    :anchor "center")
+  :stacking "bottom"
+  :focusable false
+  :namespace "ags-desktop"
+  (desktop-clock-layout))
+
+(defwindow calendar-widget
+  :monitor 0
+  :geometry (geometry
+    :x "16px"
+    :y "16px"
+    :width "300px"
+    :anchor "bottom left")
+  :stacking "overlay"
+  :namespace "ags-desktop"
+  (calendar-widget-layout))

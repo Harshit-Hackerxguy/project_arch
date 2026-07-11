@@ -1,93 +1,109 @@
-// =============================================================================
-// File: fastfetch/config.jsonc
-// Description: Cyber-Minimal configuration for Fastfetch.
-// Layer: Layer 4 — Developer Environment
-// =============================================================================
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "type": "small",
+    "source": "~/.config/fastfetch/logo.png",
+    "type": "kitty-direct",
+    "width": 18,
+    "height": 9,
     "padding": {
       "top": 1,
       "left": 2,
       "right": 3
-    },
-    "color": {
-      "1": "cyan",
-      "2": "blue"
     }
   },
   "display": {
-    "separator": " ❯ ",
+    "separator": "  ",
     "color": {
-      "keys": "cyan",
-      "title": "blue"
+      "keys": "38;5;75",
+      "title": "38;5;141"
+    },
+    "key": {
+      "width": 10
     }
   },
   "modules": [
     {
+      "type": "custom",
+      "format": "\u001b[38;5;75m╭─────────────────────────────────────────╮\u001b[0m"
+    },
+    {
       "type": "title",
       "color": {
-        "user": "cyan",
-        "at": "white",
-        "host": "blue"
+        "user": "38;5;75",
+        "at": "38;5;245",
+        "host": "38;5;141"
       }
     },
     {
-      "type": "separator",
-      "string": "────────────────────────────────────────"
+      "type": "custom",
+      "format": "\u001b[38;5;75m├─────────────────────────────────────────┤\u001b[0m"
     },
     {
       "type": "os",
-      "key": " OS    "
+      "key": "  OS",
+      "keyColor": "38;5;75"
     },
     {
       "type": "kernel",
-      "key": " Kernel"
+      "key": "  Kern",
+      "keyColor": "38;5;75"
     },
     {
       "type": "uptime",
-      "key": "󰅐 Uptime"
-    },
-    {
-      "type": "packages",
-      "key": "󰏖 Pkgs  "
+      "key": " 󰅐 Up",
+      "keyColor": "38;5;141"
     },
     {
       "type": "shell",
-      "key": " Shell "
+      "key": "  Shell",
+      "keyColor": "38;5;141"
     },
     {
       "type": "wm",
-      "key": " WM    "
+      "key": "  WM",
+      "keyColor": "38;5;75"
     },
     {
       "type": "terminal",
-      "key": " Term  "
+      "key": "  Term",
+      "keyColor": "38;5;75"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[38;5;75m├─────────────────────────────────────────┤\u001b[0m"
     },
     {
       "type": "cpu",
-      "key": " CPU   ",
+      "key": "  CPU",
+      "keyColor": "38;5;213",
       "showPeCoreCount": false
     },
     {
       "type": "gpu",
-      "key": "󰢈 GPU   "
+      "key": " 󰢈 GPU",
+      "keyColor": "38;5;213"
     },
     {
       "type": "memory",
-      "key": "󰍛 Memory"
+      "key": " 󰍛 RAM",
+      "keyColor": "38;5;75"
     },
     {
       "type": "disk",
-      "key": "󰋊 Disk  "
+      "key": " 󰋊 Disk",
+      "keyColor": "38;5;78"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[38;5;75m╰─────────────────────────────────────────╯\u001b[0m"
     },
     {
       "type": "break"
     },
     {
       "type": "colors",
-      "symbol": "circle"
+      "symbol": "circle",
+      "paddingLeft": 4
     }
   ]
 }

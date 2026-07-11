@@ -1,8 +1,3 @@
-/* =============================================================================
- * File: ~/.config/waybar/style.css
- * Description: Production-ready CSS styling for Waybar.
- * ============================================================================= */
-
 * {
     border: none;
     border-radius: 0;
@@ -10,134 +5,187 @@
     font-size: 13px;
     font-weight: 600;
     min-height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 window#waybar {
-    background: rgba(15, 23, 42, 0.88);
-    border: 1.5px solid rgba(56, 189, 248, 0.35);
-    border-radius: 10px;
-    color: #E2E8F0;
-    transition-property: background-color;
-    transition-duration: 0.3s;
+    background: rgba(11, 15, 20, 0.65);
+    border: 1.5px solid rgba(56, 189, 248, 0.18);
+    border-radius: 18px;
+    color: #CBD5E1;
+    transition: all 0.35s cubic-bezier(0.22, 0.68, 0, 1.71);
+}
+
+window#waybar.hidden {
+    opacity: 0.1;
 }
 
 tooltip {
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(56, 189, 248, 0.5);
-    border-radius: 8px;
+    background: rgba(11, 15, 20, 0.92);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 14px;
+    padding: 8px 12px;
 }
 
 tooltip label {
     color: #E2E8F0;
-    padding: 6px;
+    font-size: 12px;
 }
 
-/* -----------------------------------------------------------------------------
- * Modules Common Styling
- * ----------------------------------------------------------------------------- */
 #workspaces,
-#window,
 #clock,
-#cpu,
-#memory,
-#temperature,
 #network,
 #bluetooth,
 #pulseaudio,
 #battery,
 #tray,
 #custom-launcher,
-#custom-powermenu {
-    background: rgba(30, 41, 59, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 2px 12px;
-    margin: 4px 0px;
+#custom-controlcenter,
+#custom-media,
+#custom-separator {
+    background: transparent;
+    padding: 0 10px;
+    margin: 5px 2px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
-/* -----------------------------------------------------------------------------
- * Launcher & Powermenu Icons
- * ----------------------------------------------------------------------------- */
 #custom-launcher {
     color: #38BDF8;
-    font-size: 16px;
-    padding: 2px 14px;
-    margin-right: 4px;
+    font-size: 18px;
+    padding: 0 14px 0 16px;
+    margin-left: 6px;
+    background: rgba(56, 189, 248, 0.08);
+    border-radius: 14px;
 }
 
-#custom-powermenu {
-    color: #F43F5E;
-    font-size: 15px;
-    padding: 2px 12px;
-    margin-left: 4px;
+#custom-launcher:hover {
+    background: rgba(56, 189, 248, 0.18);
+    color: #7DD3FC;
 }
 
-/* -----------------------------------------------------------------------------
- * Workspaces
- * ----------------------------------------------------------------------------- */
 #workspaces {
-    padding: 2px 6px;
+    padding: 0 4px;
+    margin-left: 2px;
+    background: rgba(30, 41, 59, 0.45);
+    border-radius: 14px;
 }
 
 #workspaces button {
-    color: #64748B;
-    padding: 0 6px;
-    margin: 0 2px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    color: #475569;
+    padding: 0 8px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    font-size: 14px;
+    min-width: 28px;
+    transition: all 0.25s cubic-bezier(0.22, 0.68, 0, 1.71);
 }
 
 #workspaces button:hover {
-    background: rgba(56, 189, 248, 0.15);
+    background: rgba(56, 189, 248, 0.12);
     color: #38BDF8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
 }
 
 #workspaces button.active {
-    color: #38BDF8;
-    background: rgba(56, 189, 248, 0.22);
-    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    color: #0B0F14;
+    background: linear-gradient(135deg, #38BDF8, #8B5CF6);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4), 0 0 4px rgba(139, 92, 246, 0.3);
+    min-width: 32px;
+    font-weight: 900;
 }
 
 #workspaces button.urgent {
-    color: #F43F5E;
-    background: rgba(244, 63, 94, 0.2);
+    color: #FEE2E2;
+    background: rgba(244, 63, 94, 0.35);
+    animation: urgentPulse 1s ease-in-out infinite alternate;
 }
 
-/* -----------------------------------------------------------------------------
- * Specific Module Colors
- * ----------------------------------------------------------------------------- */
+@keyframes urgentPulse {
+    to {
+        background: rgba(244, 63, 94, 0.55);
+        box-shadow: 0 0 14px rgba(244, 63, 94, 0.5);
+    }
+}
+
+#custom-media {
+    color: #C084FC;
+    font-size: 13px;
+    padding: 0 16px;
+    background: rgba(139, 92, 246, 0.08);
+    border-radius: 14px;
+    border: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+#custom-media:hover {
+    background: rgba(139, 92, 246, 0.16);
+}
+
+#custom-media.Playing {
+    color: #A855F7;
+    border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+#custom-media.Paused {
+    color: #64748B;
+    border: 1px solid rgba(100, 116, 139, 0.15);
+}
+
+#custom-separator {
+    color: rgba(71, 85, 105, 0.5);
+    font-size: 14px;
+    padding: 0 2px;
+    min-width: 8px;
+}
+
 #clock {
     color: #38BDF8;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 13px;
+    padding: 0 14px;
+    background: rgba(56, 189, 248, 0.06);
+    border-radius: 14px;
 }
 
-#cpu {
-    color: #A855F7;
-}
-
-#memory {
-    color: #3B82F6;
-}
-
-#temperature {
-    color: #F59E0B;
-}
-
-#temperature.critical {
-    color: #EF4444;
-    background: rgba(239, 68, 68, 0.2);
+#clock:hover {
+    background: rgba(56, 189, 248, 0.14);
 }
 
 #network {
     color: #10B981;
 }
 
+#network.disconnected {
+    color: #F43F5E;
+}
+
+#network:hover {
+    background: rgba(16, 185, 129, 0.12);
+}
+
 #bluetooth {
     color: #60A5FA;
 }
 
+#bluetooth.disabled {
+    color: #475569;
+}
+
+#bluetooth:hover {
+    background: rgba(96, 165, 250, 0.12);
+}
+
 #pulseaudio {
     color: #EC4899;
+}
+
+#pulseaudio.muted {
+    color: #475569;
+}
+
+#pulseaudio:hover {
+    background: rgba(236, 72, 153, 0.12);
 }
 
 #pulseaudio.microphone {
@@ -148,22 +196,63 @@ tooltip label {
     color: #10B981;
 }
 
+#battery.charging {
+    color: #34D399;
+    animation: chargingGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes chargingGlow {
+    to {
+        text-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+    }
+}
+
+#battery.full {
+    color: #10B981;
+}
+
+#battery.good {
+    color: #22D3EE;
+}
+
 #battery.warning {
     color: #F59E0B;
+    background: rgba(245, 158, 11, 0.08);
 }
 
 #battery.critical {
     color: #EF4444;
-    animation-name: blink;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation: batteryBlink 0.8s ease-in-out infinite alternate;
 }
 
-@keyframes blink {
+@keyframes batteryBlink {
     to {
-        background-color: rgba(239, 68, 68, 0.35);
-        color: #FFFFFF;
+        background: rgba(239, 68, 68, 0.25);
+        color: #FEE2E2;
     }
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#custom-controlcenter {
+    color: #94A3B8;
+    font-size: 16px;
+    padding: 0 14px 0 10px;
+    margin-right: 6px;
+    border-radius: 14px;
+}
+
+#custom-controlcenter:hover {
+    color: #E2E8F0;
+    background: rgba(148, 163, 184, 0.12);
 }

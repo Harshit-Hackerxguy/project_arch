@@ -1,0 +1,315 @@
+$bg-primary: rgba(11, 15, 20, 0.75);
+$bg-surface: rgba(17, 24, 39, 0.65);
+$bg-elevated: rgba(30, 41, 59, 0.55);
+$border-subtle: rgba(56, 189, 248, 0.12);
+$border-accent: rgba(56, 189, 248, 0.3);
+$text-primary: #E2E8F0;
+$text-secondary: #94A3B8;
+$text-muted: #475569;
+$accent-cyan: #38BDF8;
+$accent-violet: #8B5CF6;
+$accent-pink: #EC4899;
+$accent-green: #10B981;
+$accent-amber: #F59E0B;
+$accent-rose: #F43F5E;
+$radius-lg: 18px;
+$radius-md: 14px;
+$radius-sm: 10px;
+
+* {
+  all: unset;
+  font-family: "JetBrains Mono Nerd Font", sans-serif;
+}
+
+.cc-container {
+  background: $bg-primary;
+  border: 1.5px solid $border-subtle;
+  border-radius: $radius-lg;
+  padding: 20px;
+  margin: 8px;
+}
+
+.cc-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.25);
+  margin-bottom: 4px;
+}
+
+.cc-title {
+  color: $text-primary;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cc-time {
+  color: $accent-cyan;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cc-toggles {
+  padding: 6px 0;
+}
+
+.toggle-btn {
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  min-width: 68px;
+  transition: all 250ms cubic-bezier(0.22, 0.68, 0, 1.71);
+
+  &:hover {
+    background: rgba(56, 189, 248, 0.12);
+  }
+
+  &.active {
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid $border-accent;
+
+    .toggle-icon {
+      color: $accent-cyan;
+    }
+  }
+}
+
+.toggle-icon {
+  color: $text-secondary;
+  font-size: 20px;
+}
+
+.cc-sliders {
+  padding: 6px 0;
+}
+
+.slider-container {
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  padding: 10px 14px;
+}
+
+.slider-icon {
+  font-size: 18px;
+  min-width: 24px;
+}
+
+.styled-slider {
+  min-height: 8px;
+
+  trough {
+    background: rgba(71, 85, 105, 0.4);
+    border-radius: 100px;
+    min-height: 8px;
+  }
+
+  highlight {
+    background: linear-gradient(90deg, $accent-cyan, $accent-violet);
+    border-radius: 100px;
+    min-height: 8px;
+  }
+
+  slider {
+    background: $text-primary;
+    border-radius: 100%;
+    min-width: 18px;
+    min-height: 18px;
+    margin: -5px 0;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  }
+}
+
+.slider-value {
+  color: $text-secondary;
+  font-size: 11px;
+  min-width: 36px;
+}
+
+.media-container {
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  padding: 14px;
+}
+
+.media-art {
+  border-radius: $radius-sm;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(71, 85, 105, 0.3);
+  min-width: 64px;
+  min-height: 64px;
+}
+
+.media-title {
+  color: $text-primary;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.media-artist {
+  color: $text-secondary;
+  font-size: 11px;
+}
+
+.media-controls {
+  padding-top: 6px;
+}
+
+.media-btn {
+  color: $text-secondary;
+  font-size: 16px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: $text-primary;
+    background: rgba(56, 189, 248, 0.1);
+  }
+
+  &.play-btn {
+    color: $accent-cyan;
+    font-size: 22px;
+  }
+}
+
+.cc-calendar {
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  padding: 14px;
+}
+
+.cal-month {
+  color: $accent-cyan;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cal-body {
+  color: $text-secondary;
+  font-size: 12px;
+  font-family: "JetBrains Mono Nerd Font", monospace;
+}
+
+.dashboard-container {
+  background: $bg-primary;
+  border: 1.5px solid $border-subtle;
+  border-radius: $radius-lg;
+  padding: 20px;
+  margin: 8px;
+}
+
+.dashboard-title {
+  color: $text-primary;
+  font-size: 15px;
+  font-weight: 700;
+  padding-bottom: 4px;
+}
+
+.dashboard-metrics {
+  padding: 8px 0;
+}
+
+.sys-metric {
+  min-width: 80px;
+}
+
+.sys-circle {
+  min-width: 72px;
+  min-height: 72px;
+  background: $bg-elevated;
+  border-radius: 100%;
+}
+
+.sys-circle-icon {
+  font-size: 22px;
+}
+
+.sys-label {
+  color: $text-secondary;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sys-value {
+  color: $text-primary;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.dashboard-network {
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  padding: 10px 16px;
+}
+
+.net-icon {
+  font-size: 14px;
+
+  &.down {
+    color: $accent-green;
+  }
+
+  &.up {
+    color: $accent-violet;
+  }
+}
+
+.net-val {
+  color: $text-primary;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dclock-container {
+  padding: 20px 40px;
+  background: $bg-primary;
+  border: 1.5px solid $border-subtle;
+  border-radius: 24px;
+}
+
+.dclock-time {
+  color: $text-primary;
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.dclock-seconds {
+  color: $accent-cyan;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.dclock-date {
+  color: $text-secondary;
+  font-size: 16px;
+  font-weight: 500;
+  padding-top: 4px;
+}
+
+.calwidget-container {
+  background: $bg-primary;
+  border: 1.5px solid $border-subtle;
+  border-radius: $radius-lg;
+  padding: 20px;
+  margin: 8px;
+}
+
+.calwidget-month {
+  color: $accent-cyan;
+  font-size: 16px;
+  font-weight: 700;
+  padding-bottom: 6px;
+}
+
+.calwidget-body {
+  color: $text-primary;
+  font-size: 13px;
+  font-family: "JetBrains Mono Nerd Font", monospace;
+}
+
+.calwidget-today {
+  color: $text-secondary;
+  font-size: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(71, 85, 105, 0.25);
+}

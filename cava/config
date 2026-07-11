@@ -1,0 +1,31 @@
+[general]
+framerate = 60
+bars = 50
+bar_width = 2
+bar_spacing = 1
+sensitivity = 150
+lower_cutoff_freq = 50
+higher_cutoff_freq = 10000
+
+[input]
+method = pipewire
+source = auto
+
+[output]
+method = noncurses
+channels = stereo
+mono_option = average
+
+[color]
+gradient = 1
+gradient_count = 4
+gradient_color_1 = '#38BDF8'
+gradient_color_2 = '#8B5CF6'
+gradient_color_3 = '#EC4899'
+gradient_color_4 = '#F43F5E'
+
+[smoothing]
+noise_reduction = 77
+monstercat = 1
+waves = 1
+gravity = 100

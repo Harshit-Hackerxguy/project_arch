@@ -1,46 +1,41 @@
-// =============================================================================
-// File: ~/.config/waybar/config.jsonc
-// Description: Production-ready Waybar configuration bar.
-// =============================================================================
 {
   "layer": "top",
   "position": "top",
-  "height": 38,
-  "margin-top": 8,
-  "margin-left": 12,
-  "margin-right": 12,
+  "height": 42,
+  "margin-top": 10,
+  "margin-left": 16,
+  "margin-right": 16,
   "margin-bottom": 0,
-  "spacing": 8,
+  "spacing": 6,
   "exclusive": true,
   "fixed-center": true,
+  "reload_style_on_change": true,
 
   "modules-left": [
     "custom/launcher",
-    "hyprland/workspaces",
-    "hyprland/window"
+    "hyprland/workspaces"
   ],
 
   "modules-center": [
-    "clock"
+    "custom/media"
   ],
 
   "modules-right": [
-    "cpu",
-    "memory",
-    "temperature",
+    "tray",
     "network",
     "bluetooth",
     "pulseaudio",
     "pulseaudio#microphone",
     "battery",
-    "tray",
-    "custom/powermenu"
+    "custom/separator",
+    "clock",
+    "custom/controlcenter"
   ],
 
   "custom/launcher": {
-    "format": "",
+    "format": "  ",
     "tooltip": false,
-    "on-click": "rofi -show drun -show-icons -theme ~/.config/rofi/themes/cyber-minimal.rasi"
+    "on-click": "rofi -show drun -show-icons"
   },
 
   "hyprland/workspaces": {
@@ -49,38 +44,44 @@
     "all-outputs": true,
     "sort-by-number": true,
     "format-icons": {
-      "1": "I",
-      "2": "II",
-      "3": "III",
-      "4": "IV",
-      "5": "V",
-      "6": "VI",
-      "7": "VII",
-      "8": "VIII",
-      "9": "IX",
-      "10": "X",
-      "urgent": "",
-      "default": ""
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "active": "",
+      "urgent": "",
+      "default": ""
     },
     "persistent-workspaces": {
       "*": 5
     }
   },
 
-  "hyprland/window": {
+  "custom/media": {
     "format": "{}",
-    "max-length": 45,
-    "separate-outputs": true,
-    "rewrite": {
-      "(.*) — Mozilla Firefox": "  $1",
-      "(.*) - NVIM": "  $1",
-      "(.*) — Kitty": "  $1",
-      "": "󰇄  Arch Linux Desktop"
-    }
+    "return-type": "json",
+    "max-length": 55,
+    "exec": "~/.config/waybar/scripts/media.sh",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "escape": true
+  },
+
+  "custom/separator": {
+    "format": "│",
+    "tooltip": false
   },
 
   "clock": {
-    "format": "  {:%H:%M  •  󰃭 %a, %b %d}",
+    "format": "  {:%H:%M}",
+    "format-alt": "  {:%A, %B %d}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "year",
@@ -89,7 +90,7 @@
       "on-scroll": 1,
       "format": {
         "months": "<span color='#38BDF8'><b>{}</b></span>",
-        "days": "<span color='#E5E7EB'><b>{}</b></span>",
+        "days": "<span color='#CBD5E1'><b>{}</b></span>",
         "weeks": "<span color='#8B5CF6'><b>W{}</b></span>",
         "weekdays": "<span color='#F59E0B'><b>{}</b></span>",
         "today": "<span color='#10B981'><b><u>{}</u></b></span>"
@@ -97,81 +98,75 @@
     }
   },
 
-  "cpu": {
-    "interval": 2,
-    "format": "  {usage}%",
-    "tooltip": true
-  },
-
-  "memory": {
-    "interval": 5,
-    "format": "  {percentage}%",
-    "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB"
-  },
-
-  "temperature": {
-    "critical-threshold": 80,
-    "format": " {temperatureC}°C",
-    "format-critical": " {temperatureC}°C"
-  },
-
   "network": {
-    "format-wifi": "  {essid}",
-    "format-ethernet": "  Connected",
-    "format-disconnected": "  Offline",
-    "tooltip-format": "{ifname} via {gwaddr} ({signalStrength}%)",
-    "on-click": "kitty -e nmtui"
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "  {cidr}",
+    "format-disconnected": "  Off",
+    "tooltip-format-wifi": "  {essid}\n  {ipaddr}/{cidr}\n  Signal: {signalStrength}%\n  Freq: {frequency}GHz\n  Up: {bandwidthUpBits}\n  Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": "  {ifname}\n  {ipaddr}/{cidr}",
+    "on-click": "kitty -e nmtui",
+    "interval": 5
   },
 
   "bluetooth": {
-    "format": " {status}",
-    "format-connected": " {device_alias}",
-    "format-connected-battery": " {device_alias} ({device_battery_percentage}%)",
+    "format": "",
+    "format-connected": " {num_connections}",
+    "format-disabled": "",
     "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": " {device_alias}",
     "on-click": "blueman-manager"
   },
 
   "pulseaudio": {
-    "format": "{icon}  {volume}%",
-    "format-muted": "  Muted",
+    "format": "{icon} {volume}%",
+    "format-muted": " ",
     "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pavucontrol",
+    "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-",
+    "smooth-scrolling-threshold": 1
   },
 
   "pulseaudio#microphone": {
     "format": "{format_source}",
-    "format-source": " {volume}%",
-    "format-source-muted": " Muted",
+    "format-source": " {volume}%",
+    "format-source-muted": " ",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   },
 
   "battery": {
     "states": {
+      "full": 100,
+      "good": 80,
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon}  {capacity}%",
-    "format-charging": "  {capacity}%",
-    "format-plugged": "  {capacity}%",
-    "format-icons": ["", "", "", "", ""]
+    "format": "{icon} {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-plugged": "  {capacity}%",
+    "format-full": "  Full",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 10
   },
 
   "tray": {
-    "icon-size": 16,
-    "spacing": 10
+    "icon-size": 17,
+    "spacing": 8,
+    "show-passive-items": true
   },
 
-  "custom/powermenu": {
-    "format": "",
+  "custom/controlcenter": {
+    "format": "",
     "tooltip": false,
-    "on-click": "~/.config/scripts/power/powermenu.sh"
+    "on-click": "eww open --toggle control-center"
   }
 }
